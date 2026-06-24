@@ -1,20 +1,23 @@
-# Environments
-ds_env/
-env/
-venv/
-
-# Python cache
+# 🐍 Python cache
 __pycache__/
 *.pyc
+*.pyo
 
-# Testing
+# 🧪 pytest
 .pytest_cache/
 
-# OS / IDE
+# 🧠 entornos virtuales
+.venv/
+venv/
+env/
+
+# 📦 builds / packaging
+build/
+dist/
+*.egg-info/
+
+# 🧾 logs
+*.log
+
+# 🖥️ sistema
 .DS_Store
-.vscode/
-.idea/
-__pycache__/
-*.pyc
-__pycache__/
-*.pyc
