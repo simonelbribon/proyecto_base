@@ -1,0 +1,8 @@
+from fastapi import APIRouter
+from seme.publisher.service import publish
+
+router = APIRouter()
+
+@router.post("/publish")
+async def publish_endpoint(payload: dict):
+    return await publish(payload)
