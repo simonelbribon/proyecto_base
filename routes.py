@@ -1,10 +1,16 @@
 from fastapi import APIRouter
-from src.seme.pipeline import run_pipeline
+from seme.publisher.service import publish
 
-router = APIRouter(prefix="/v1")
+router = APIRouter()
 
+@router.get("/ping")
+def ping():
+    return {"ok": True}
 
-@router.post("/process")
-def process(record: dict):
-    event = run_pipeline(record)
-    return event.__dict__
+@router.post("/pipeline")
+def pipeline(payload: dict):
+    return publish(payload)
+
+@router.post("/publish")
+def publish_endpoint(payload: dict):
+    return publish(payload)

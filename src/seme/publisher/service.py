@@ -1,11 +1,9 @@
-from seme.publisher.bus import AsyncEventBus
-from seme.publisher.event import Event
-from seme.publisher.handlers import handle_publish
+from src.seme.publisher.bus import AsyncEventBus
+from src.seme.publisher.event import Event
 
 bus = AsyncEventBus()
 
-bus.subscribe("publish", handle_publish)
 
-async def publish(data: dict):
-    await bus.publish(Event(type="publish", payload=data))
-    return {"status": "dispatched"}
+def publish(name: str, payload: dict) -> None:
+    event = Event(name=name, payload=payload)
+    bus.publish(event)

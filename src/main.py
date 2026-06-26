@@ -1,11 +1,11 @@
 from fastapi import FastAPI
-from src.api.v1.routes import router
+
+from src.api.routes import router as api_router
 
 app = FastAPI(title="Proyecto Base")
 
-app.include_router(router)
+app.include_router(api_router)
 
-
-@app.get("/")
-def root():
+@app.get("/health")
+def health():
     return {"status": "ok"}

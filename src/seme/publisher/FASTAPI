@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from seme.publisher.service import publish
+from src.seme.publisher.service import publish
 
 router = APIRouter()
 

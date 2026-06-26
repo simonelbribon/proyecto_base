@@ -1,0 +1,22 @@
+from fastapi import APIRouter
+from pydantic import BaseModel
+
+from src.seme.publisher.service import publish
+
+router = APIRouter()
+
+
+class VentaIn(BaseModel):
+    id: int
+    monto: float
+
+
+@router.get("/ventas")
+def get_ventas():
+    return {"status": "ventas ok"}
+
+
+@router.post("/ventas")
+def crear_venta(venta: VentaIn):
+    publish("venta_creada", venta.model_dump())
+    return {"ok": True}

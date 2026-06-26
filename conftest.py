@@ -4,5 +4,4 @@ from seme.api.main import app
 
 @pytest.fixture
 def client():
-    client = TestClient(app)
-    return client
+    return TestClient(app)

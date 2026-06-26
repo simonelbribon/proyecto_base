@@ -1,7 +1,10 @@
 from dataclasses import dataclass
-from typing import Any, Dict
+from datetime import datetime
+from typing import Any
+
 
 @dataclass
 class Event:
-    type: str
-    payload: Dict[str, Any]
+    name: str
+    payload: dict[str, Any]
+    created_at: datetime = datetime.utcnow()

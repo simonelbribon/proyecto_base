@@ -1,32 +1,18 @@
-import asyncio
-import logging
-from typing import Callable, Dict, List, Awaitable
-from seme.publisher.event import Event
+from typing import Callable, Dict, List, Any
 
-logger = logging.getLogger(__name__)
+from src.seme.publisher.event import Event
 
-Handler = Callable[[dict], Awaitable[None]]
 
 class AsyncEventBus:
-    def __init__(self):
-        self._handlers: Dict[str, List[Handler]] = {}
+    def __init__(self) -> None:
+        self._handlers: Dict[str, List[Callable[[Event], Any]]] = {}
 
-    def subscribe(self, event_type: str, handler: Handler):
-        self._handlers.setdefault(event_type, []).append(handler)
+    def subscribe(self, event_name: str, handler: Callable[[Event], Any]) -> None:
+        if event_name not in self._handlers:
+            self._handlers[event_name] = []
+        self._handlers[event_name].append(handler)
 
-    async def publish(self, event: Event):
-        handlers = self._handlers.get(event.type, [])
-
-        tasks = [
-            self._safe_execute(handler, event.payload)
-            for handler in handlers
-        ]
-
-        if tasks:
-            await asyncio.gather(*tasks)
-
-    async def _safe_execute(self, handler: Handler, payload: dict):
-        try:
-            await handler(payload)
-        except Exception as e:
-            logger.error(f"Handler failed: {handler.__name__} -> {e}")
+    def publish(self, event: Event) -> None:
+        handlers = self._handlers.get(event.name, [])
+        for handler in handlers:
+            handler(event)

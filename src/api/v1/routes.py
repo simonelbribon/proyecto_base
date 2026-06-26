@@ -1,5 +1,8 @@
 from fastapi import APIRouter
 from src.seme.pipeline import run_pipeline
+from src.api.v1.routes import router
+
+app.include_router(router, prefix="/api/v1")
 
 router = APIRouter(prefix="/v1")
 

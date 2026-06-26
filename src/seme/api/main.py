@@ -1,5 +1,6 @@
+# src/seme/api/main.py
 from fastapi import FastAPI
-from seme.api.v1.routes import router
+from src.seme.api.v1.routes import router
 
 app = FastAPI(title="SEME API")
 
